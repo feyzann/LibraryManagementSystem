@@ -7,14 +7,17 @@ namespace IleriWebProject.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private LibraryManagementSystemContext _libraryManagementSystemContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, LibraryManagementSystemContext libraryManagementSystemContext)
         {
             _logger = logger;
+            _libraryManagementSystemContext = libraryManagementSystemContext;
         }
 
         public IActionResult Index()
         {
+            //var books = _libraryManagementSystemContext.Books.ToList(); EntityFramework linq sorgularý
             return View();
         }
 
