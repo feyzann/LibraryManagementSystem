@@ -120,11 +120,11 @@ public partial class LibraryManagementSystemContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("PRIMARY");
+            entity.HasKey(e => e.RoleID).HasName("PRIMARY");
 
             entity.ToTable("roles");
 
-            entity.Property(e => e.RoleId).HasColumnName("RoleID");
+            entity.Property(e => e.RoleID).HasColumnName("RoleID");
             entity.Property(e => e.RoleName).HasMaxLength(50);
         });
 
@@ -136,7 +136,7 @@ public partial class LibraryManagementSystemContext : DbContext
 
             entity.HasIndex(e => e.Email, "Email").IsUnique();
 
-            entity.HasIndex(e => e.RoleId, "RoleID");
+            entity.HasIndex(e => e.RoleID, "RoleID");
 
             entity.Property(e => e.UserId).HasColumnName("UserID");
             entity.Property(e => e.Email).HasMaxLength(100);
@@ -146,10 +146,10 @@ public partial class LibraryManagementSystemContext : DbContext
             entity.Property(e => e.RegistrationDate)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp");
-            entity.Property(e => e.RoleId).HasColumnName("RoleID");
+            entity.Property(e => e.RoleID).HasColumnName("RoleID");
 
             entity.HasOne(d => d.Role).WithMany(p => p.Users)
-                .HasForeignKey(d => d.RoleId)
+                .HasForeignKey(d => d.RoleID)
                 .HasConstraintName("users_ibfk_1");
         });
 

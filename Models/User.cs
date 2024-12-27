@@ -13,7 +13,7 @@ public partial class User
 
     public string Password { get; set; } = null!;
 
-    public int RoleId { get; set; }
+    public int RoleID { get; set; }
 
     public DateTime RegistrationDate { get; set; }
 

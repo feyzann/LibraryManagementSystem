@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using IleriWebProject.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,11 +9,13 @@ namespace IleriWebProject.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private LibraryManagementSystemContext _libraryManagementSystemContext;
+        private readonly INotyfService _notyf;
 
-        public HomeController(ILogger<HomeController> logger, LibraryManagementSystemContext libraryManagementSystemContext)
+        public HomeController(ILogger<HomeController> logger, LibraryManagementSystemContext libraryManagementSystemContext, INotyfService notyf)
         {
             _logger = logger;
             _libraryManagementSystemContext = libraryManagementSystemContext;
+            _notyf = notyf;
         }
 
         public IActionResult Index()
