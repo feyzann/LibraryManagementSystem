@@ -1,6 +1,7 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using IleriWebProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace IleriWebProject.Controllers
 {
@@ -39,20 +40,8 @@ namespace IleriWebProject.Controllers
                 ViewBag.Error = "Invalid role!";
                 return View("SignUp");
             }
-
-            // Yeni kullanıcı oluştur
-            var newUser = new User
-            {
-                FullName = fullName,
-                Email = email,
-                Password = password, // Güvenlik için şifreyi hash'lemeniz önerilir
-                RoleID = userRole, // RoleID'yi ekleyin
-                RegistrationDate = DateTime.Now,
-                PhoneNumber = phoneNumber
-            };
-
-            _context.Users.Add(newUser);
-            _context.SaveChanges(); // Değişiklikleri veritabanına kaydet
+            _context.Database.ExecuteSqlInterpolated(
+                        $"CALL AddNewUser({fullName}, {email}, {password}, {userRole})");
 
             return RedirectToAction("Login", "Login");
         }

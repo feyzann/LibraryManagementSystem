@@ -27,20 +27,10 @@
                     <td>@book.Category.CategoryName</td>
                     <td>@book.StockCount</td>
                     <td>
-                        <button class="btn btn-primary" onclick="confirmBorrow(@book.BookId)">Kirala</button>
+                        <a href="~/Home/BorrowBook?bookId=@book.BookId"><button class="btn btn-primary">Kirala</button></a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
-
-<script>
-    function confirmBorrow(bookId) {
-        // Onay penceresini göster
-        if (confirm('Bu kitabı kiralamak istediğinizden emin misiniz?')) {
-            // Eğer onay alındıysa, kiralama işlemini başlat
-            window.location.href = '/Home/BorrowBook/' + bookId;
-        }
-    }
-</script>

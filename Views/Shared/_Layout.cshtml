@@ -23,9 +23,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i> Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy"><i class="fas fa-user-secret"></i> Privacy</a>
-                        </li>
                         <!-- Kategoriler ve Admin Menüleri -->
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index"><i class="fas fa-th-large"></i> Categories</a>
@@ -36,16 +33,10 @@
                                 <i class="fas fa-user"></i> User Menu
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
-                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                                <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
                             </ul>
                         </li>
                     </ul>
-                    <!-- Arama Çubuğu -->
-                    <form class="d-flex" asp-controller="Books" asp-action="Search">
-                        <input class="form-control me-2" type="search" placeholder="Search Books" aria-label="Search" name="query">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
                 </div>
             </div>
         </nav>

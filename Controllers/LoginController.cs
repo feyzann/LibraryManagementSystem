@@ -30,6 +30,7 @@ namespace IleriWebProject.Controllers
             if (user != null && user.Password == password) // Güvenlik için şifreyi hash'lemeniz önerilir
             {
                 _notyf.Success("Login Success");
+                HttpContext.Session.SetInt32("UserId", user.UserId);
                 // Başarılı giriş
                 return RedirectToAction("Index", "Home");
             }

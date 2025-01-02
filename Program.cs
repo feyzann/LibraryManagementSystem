@@ -11,6 +11,14 @@ builder.Services.AddDbContext<LibraryManagementSystemContext>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddDistributedMemoryCache(); // Session için gerekli
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(60); // Oturum zaman aþýmý süresi
+    options.Cookie.HttpOnly = true; // Güvenlik için
+    options.Cookie.IsEssential = true; // GDPR uyumluluðu
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,6 +30,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseSession(); // Session middleware
 app.UseStaticFiles();
 
 app.UseRouting();

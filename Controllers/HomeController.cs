@@ -23,7 +23,7 @@ namespace IleriWebProject.Controllers
         {
             // Kitaplarý çekiyoruz
             var books = _libraryManagementSystemContext.Books
-                .Include(b => b.Category)  // Kitaplarýn kategorisini de dahil ediyoruz
+                .Include(b => b.Category)
                 .ToList();
 
             // Eðer kitap yoksa, hata mesajý gösterelim
@@ -51,18 +51,11 @@ namespace IleriWebProject.Controllers
                 _notyf.Error("Kitap bulunamadý.");
                 return RedirectToAction("Index");
             }
+            var userId = HttpContext.Session.GetInt32("UserId") ?? 1;
 
             // Kiralama iþlemi yapýlabilir
-            // Örneðin, BorrowTransaction kaydýný ekleyelim
-            var transaction = new Borrowtransaction
-            {
-                UserId = 1, // Örnek kullanýcý id'si. Gerçek kullanýcý id'si buraya eklenmeli.
-                BookId = book.BookId,
-                BorrowDate = DateOnly.FromDateTime(DateTime.Now),
-            };
+            _libraryManagementSystemContext.Database.ExecuteSqlInterpolated($"CALL BorrowBook({userId}, {bookId})");
 
-            _libraryManagementSystemContext.Borrowtransactions.Add(transaction);
-            _libraryManagementSystemContext.SaveChanges();
 
             _notyf.Success("Kitap baþarýyla kiralandý!");
 
