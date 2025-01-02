@@ -1,30 +1,44 @@
-﻿
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
     ViewData["Title"] = "Sign Up";
 }
 
-<h2>Sign Up</h2>
-<form method="post" asp-controller="SignUp" asp-action="Register">
-    <div>
-        <label for="fullName">Full Name:</label>
-        <input type="text" id="fullName" name="fullName" required />
+<div class="container-fluid d-flex align-items-center justify-content-center" style="height: 100vh;">
+    <div class="row w-100">
+        <div class="col-md-6 col-lg-4 mx-auto">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h2 class="text-center">Sign Up</h2>
+                    <form method="post" asp-controller="SignUp" asp-action="Register">
+                        <div class="form-group">
+                            <label for="fullName">Full Name:</label>
+                            <input type="text" class="form-control" id="fullName" name="fullName" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" class="form-control" id="password" name="password" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNumber">Phone Number:</label>
+                            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" required />
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+                    </form>
+                    <hr />
+                    <p class="text-center">Already have an account?</p>
+                    <a href="/Login/Login" class="btn btn-secondary btn-block">Login</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required />
-    </div>
-    <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required />
-    </div>
-    <div>
-        <label for="password">Phone Number:</label>
-        <input type="text" id="phoneNumber" name="phoneNumber" required />
-    </div>
+</div>
 
-    <button type="submit">Sign Up</button>
-</form>
+<!-- Add the necessary Bootstrap 4 CDN links -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
