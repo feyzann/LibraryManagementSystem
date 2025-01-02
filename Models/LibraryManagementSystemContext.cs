@@ -30,13 +30,8 @@ public partial class LibraryManagementSystemContext : DbContext
 
     public virtual DbSet<VBooksByCategory> VBooksByCategories { get; set; }
 
-    public virtual DbSet<VBooksCountByStatus> VBooksCountByStatuses { get; set; }
-
-    public virtual DbSet<VBooksStatus> VBooksStatuses { get; set; }
-
     public virtual DbSet<VUserBorrowedBook> VUserBorrowedBooks { get; set; }
-
-    public virtual DbSet<VUsersBorrowedBooksStatus> VUsersBorrowedBooksStatuses { get; set; }
+    public virtual DbSet<VCategoryBookCount> VCategoryBookCounts { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -164,26 +159,6 @@ public partial class LibraryManagementSystemContext : DbContext
             entity.Property(e => e.CategoryName).HasMaxLength(50);
         });
 
-        modelBuilder.Entity<VBooksCountByStatus>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("v_books_count_by_status");
-
-            entity.Property(e => e.StatusDescription).HasMaxLength(50);
-        });
-
-        modelBuilder.Entity<VBooksStatus>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("v_books_status");
-
-            entity.Property(e => e.Author).HasMaxLength(100);
-            entity.Property(e => e.BookName).HasMaxLength(100);
-            entity.Property(e => e.StatusDescription).HasMaxLength(50);
-        });
-
         modelBuilder.Entity<VUserBorrowedBook>(entity =>
         {
             entity
@@ -195,15 +170,13 @@ public partial class LibraryManagementSystemContext : DbContext
             entity.Property(e => e.MaskedPhoneNumber).HasMaxLength(23);
         });
 
-        modelBuilder.Entity<VUsersBorrowedBooksStatus>(entity =>
+        modelBuilder.Entity<VCategoryBookCount>(entity =>
         {
             entity
                 .HasNoKey()
-                .ToView("v_users_borrowed_books_status");
+                .ToView("v_category_book_count");
 
-            entity.Property(e => e.BookName).HasMaxLength(100);
-            entity.Property(e => e.FullName).HasMaxLength(100);
-            entity.Property(e => e.StatusDescription).HasMaxLength(50);
+            entity.Property(e => e.CategoryName).HasMaxLength(200);
         });
 
         OnModelCreatingPartial(modelBuilder);

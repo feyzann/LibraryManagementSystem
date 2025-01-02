@@ -62,6 +62,12 @@ namespace IleriWebProject.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult GetCategories()
+        {
+            var categories = _libraryManagementSystemContext.VCategoryBookCounts.ToList();
+            return PartialView("_PartialCategories", categories);  // Partial View adýný veriyoruz
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

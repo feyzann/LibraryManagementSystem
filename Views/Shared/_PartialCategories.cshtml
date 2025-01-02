@@ -1,0 +1,21 @@
+﻿@model List<IleriWebProject.Models.VCategoryBookCount>
+
+<div class="category-list">
+    <table>
+        <thead>
+            <tr>
+                <th>Kitap Adı</th>
+                <th>Kitap Sayısı</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model)
+            {
+                <tr>
+                    <td>@category.CategoryName</td>
+                    <td>@category.BookCount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
