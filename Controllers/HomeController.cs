@@ -22,9 +22,7 @@ namespace IleriWebProject.Controllers
         public IActionResult Index()
         {
             // Kitaplarý çekiyoruz
-            var books = _libraryManagementSystemContext.Books
-                .Include(b => b.Category)
-                .ToList();
+            var books = _libraryManagementSystemContext.VBooksByCategories.ToList();
 
             // Eðer kitap yoksa, hata mesajý gösterelim
             if (books == null || !books.Any())
@@ -36,9 +34,11 @@ namespace IleriWebProject.Controllers
             return View(books);
         }
 
-        public IActionResult Privacy()
+        public IActionResult MyTransactionBooks()
         {
-            return View();
+            var userId = HttpContext.Session.GetInt32("UserId") ?? 0;
+            var result = _libraryManagementSystemContext.VUserBorrowedBooks.Where(x => x.UserID == userId).ToList();
+            return View(result);
         }
 
         public IActionResult BorrowBook(int bookId)

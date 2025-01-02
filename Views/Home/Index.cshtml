@@ -2,7 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-@model IEnumerable<IleriWebProject.Models.Book>
+@model List<IleriWebProject.Models.VBooksByCategory>
 
 <div class="container mt-4">
     <h1 class="display-5">Kitap Listesi</h1>
@@ -24,10 +24,10 @@
                     <td>@book.BookName</td>
                     <td>@book.Author</td>
                     <td>@book.PublicationYear</td>
-                    <td>@book.Category.CategoryName</td>
+                    <td>@book.CategoryName</td>
                     <td>@book.StockCount</td>
                     <td>
-                        <a href="~/Home/BorrowBook?bookId=@book.BookId"><button class="btn btn-primary">Kirala</button></a>
+                        <button class="btn btn-primary " @(book.StockCount == 0 ? "disabled" : "")> <a href="~/Home/BorrowBook?bookId=@book.BookId" style="text-decoration:none;color:white;">Kirala</a></button>
                     </td>
                 </tr>
             }

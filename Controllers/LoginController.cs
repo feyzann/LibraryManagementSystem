@@ -38,6 +38,12 @@ namespace IleriWebProject.Controllers
             _notyf.Error("Invalid username or password.");
             return View();
         }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
+        }
     }
 }
 

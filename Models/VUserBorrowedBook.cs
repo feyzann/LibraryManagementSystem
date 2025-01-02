@@ -5,6 +5,7 @@ namespace IleriWebProject.Models;
 
 public partial class VUserBorrowedBook
 {
+    public int UserID { get; set; } = 1!;
     public string FullName { get; set; } = null!;
 
     public string BookName { get; set; } = null!;
@@ -14,4 +15,5 @@ public partial class VUserBorrowedBook
     public DateOnly? ReturnDate { get; set; }
 
     public string? MaskedPhoneNumber { get; set; }
+    public string? DaysSinceBorrowed { get; set; }
 }
