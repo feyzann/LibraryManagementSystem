@@ -1,76 +1,110 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@{
+	ViewData["Title"] = "Home Page";
 }
 
-@model List<IleriWebProject.Models.VBooksByCategory>
 <!-- Load Categories Button -->
 <button id="loadCategoriesButton" class="btn btn-primary">Load Categories</button>
 
+<!-- Load Categories Button -->
+<button id="loadBooksTop10Button" class="btn btn-primary">Load Last Top 10 Books</button>
+
 <!-- Modal -->
 <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="categoryModalLabel">Kategori Listesi</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Kategoriler burada yüklenecek -->
-                <div id="categoryList"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-            </div>
-        </div>
-    </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="categoryModalLabel">Kategori Listesi</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<!-- Kategoriler burada yüklenecek -->
+				<div id="categoryList"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="bookModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="bookModalLabel">Kategori Listesi</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<!-- Kategoriler burada yüklenecek -->
+				<div id="bookList"></div>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="container mt-4">
-    <h1 class="display-5">Kitap Listesi</h1>
-    <table class="table table-striped table-bordered">
-        <thead class="thead-dark">
-            <tr>
-                <th>Kitap Adı</th>
-                <th>Yazar</th>
-                <th>Yayın Yılı</th>
-                <th>Kategori</th>
-                <th>Stok Adedi</th>
-                <th>İşlemler</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var book in Model)
-            {
-                <tr>
-                    <td>@book.BookName</td>
-                    <td>@book.Author</td>
-                    <td>@book.PublicationYear</td>
-                    <td>@book.CategoryName</td>
-                    <td>@book.StockCount</td>
-                    <td>
-                        <button class="btn btn-primary " @(book.StockCount == 0 ? "disabled" : "")> <a href="~/Home/BorrowBook?bookId=@book.BookId" style="text-decoration:none;color:white;">Kirala</a></button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+	<h1 class="display-5">Kitap Listesi</h1>
+	<table class="table table-striped table-bordered">
+		<thead class="thead-dark">
+			<tr>
+				<th>Kitap Adı</th>
+				<th>Yazar</th>
+				<th>Yayın Yılı</th>
+				<th>Kategori</th>
+				<th>Stok Adedi</th>
+				<th>İşlemler</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var book in Model)
+			{
+				<tr>
+					<td>@book.BookName</td>
+					<td>@book.Author</td>
+					<td>@book.PublicationYear</td>
+					<td>@book.CategoryName</td>
+					<td>@book.StockCount</td>
+					<td>
+						<button class="btn btn-primary " @(book.StockCount == 0 ? "disabled" : "")> <a href="~/Home/BorrowBook?bookId=@book.BookId" style="text-decoration:none;color:white;">Kirala</a></button>
+						@if (HttpContextAccessor.HttpContext.Session.GetInt32("UserRole") == 1)
+						{
+							<button class="btn btn-danger"> <a href="~/Books/BookDelete?Id=@book.BookId" style="text-decoration:none;color:white;">Sil</a></button>
+						}
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 </div>
 
 @section Scripts {
-    <script>
-        $(document).ready(function () {
-            $("#loadCategoriesButton").click(function () {
-                $.ajax({
-                    url: '@Url.Action("GetCategories", "Home")', // Controller'daki aksiyona yönlendiriyoruz
-                    type: 'GET',
-                    success: function (result) {
-                        $("#categoryList").html(result); // Partial View sonucunu ilgili alanda gösteriyoruz
-                        // Modalı açıyoruz
-                        $('#categoryModal').modal('show');
-                    }
-                });
-            });
-        });
-    </script>
+	<script>
+		
+		$(document).ready(function () {
+			$("#loadCategoriesButton").click(function () {
+				$.ajax({
+					url: '@Url.Action("GetCategories", "Home")', // Controller'daki aksiyona yönlendiriyoruz
+					type: 'GET',
+					success: function (result) {
+						$("#categoryList").html(result); // Partial View sonucunu ilgili alanda gösteriyoruz
+						// Modalı açıyoruz
+						$('#categoryModal').modal('show');
+					}
+				});
+			});
+
+				$("#loadBooksTop10Button").click(function () {
+				$.ajax({
+					url: '@Url.Action("GetLast10Books", "Home")', // Controller'daki aksiyona yönlendiriyoruz
+					type: 'GET',
+					success: function (result) {
+						$("#bookList").html(result); // Partial View sonucunu ilgili alanda gösteriyoruz
+						// Modalı açıyoruz
+						$('#bookModal').modal('show');
+					}
+				});
+			});
+		});
+	</script>
 }

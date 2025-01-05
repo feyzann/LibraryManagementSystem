@@ -11,6 +11,7 @@
 				<th>Kiralama Dönüş Tarihi</th>
 				<th>Kullanıcı Telefon Numarası</th>
 				<th>Süre</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -25,6 +26,14 @@
 						<td>@book.ReturnDate</td>
 						<td>@book.MaskedPhoneNumber</td>
 						<td>@book.DaysSinceBorrowed</td>
+						@if(book.ReturnDate == null){
+							<td>
+								<button class="btn btn-warning"> <a href="~/Home/BorrowTransactionBook?transId=@book.TransactionId" style="text-decoration:none;color:white;">İade et</a></button>
+							</td>
+						}else{
+							<td>@book.ReturnDate Bu tarihte iade ettiniz</td>
+						}
+					
 					</tr>
 				}
 			}

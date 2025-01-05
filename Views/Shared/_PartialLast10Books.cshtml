@@ -1,0 +1,25 @@
+﻿@model List<Top10Books>
+
+<div class="book-list">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Kitap Adı</th>
+                <th>Yazar</th>
+                <th>Yayın Yılı</th>
+                <th>Stok Sayısı</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.BookName</td>
+                    <td>@book.Author</td>
+                    <td>@book.PublicationYear</td>
+                    <td>@book.StockCount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

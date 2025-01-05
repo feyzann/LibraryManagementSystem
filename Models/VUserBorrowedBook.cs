@@ -16,4 +16,8 @@ public partial class VUserBorrowedBook
 
     public string? MaskedPhoneNumber { get; set; }
     public string? DaysSinceBorrowed { get; set; }
+
+    public int BookId { get; set; } = 1!;
+
+    public int TransactionId { get; set; } = 1!;
 }

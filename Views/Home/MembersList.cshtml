@@ -1,0 +1,35 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @model IEnumerable<IleriWebProject.Models.VMemberList>
+
+    <h2>Üye Listesi</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>UserID</th>
+                <th>FullName</th>
+                <th>Email</th>
+                <th>RegistrationDate</th>
+                <th>PhoneNumber</th>
+                <th>DaysRegistered</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var member in Model)
+            {
+                <tr>
+                    <td>@member.UserID</td>
+                    <td>@member.FullName</td>
+                    <td>@member.Email</td>
+                    <td>@member.RegistrationDate.ToShortDateString()</td>
+                    <td>@member.PhoneNumber</td>
+                    <td>@member.DaysRegistered</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}

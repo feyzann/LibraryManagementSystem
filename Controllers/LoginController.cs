@@ -31,6 +31,7 @@ namespace IleriWebProject.Controllers
             {
                 _notyf.Success("Login Success");
                 HttpContext.Session.SetInt32("UserId", user.UserId);
+                HttpContext.Session.SetInt32("UserRole", user.RoleID);
                 // Başarılı giriş
                 return RedirectToAction("Index", "Home");
             }
